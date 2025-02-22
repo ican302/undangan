@@ -12,6 +12,7 @@ class Theme extends Model
 
     protected $table = 'themes';
     protected $fillable = [
+        'id',
         'name',
         'slug',
         'view_file',

@@ -76,6 +76,8 @@ class InvitationController extends Controller
             $tekspembuka = TeksPembuka::where('invitation_id', $invitation->id)->first();
             $tekspenutup = TeksPenutup::where('invitation_id', $invitation->id)->first();
 
+            $isPremium = $invitation->theme->tipe == 'Premium';
+
             return view('user.edit-invitation', compact(
                 'invitation',
                 'themes',
@@ -90,6 +92,7 @@ class InvitationController extends Controller
                 'tamu',
                 'tekspembuka',
                 'tekspenutup',
+                'isPremium'
             ));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat data undangan: ' . $e->getMessage());
@@ -155,6 +158,8 @@ class InvitationController extends Controller
     public function show($slug)
     {
         try {
+            $userId = Auth::id();
+
             $invitation = Invitation::with([
                 'mempelai',
                 'acara',
@@ -168,12 +173,13 @@ class InvitationController extends Controller
                 'tekspenutup'
             ])
                 ->where('slug', $slug)
+                ->where('user_id', $userId)
                 ->firstOrFail();
 
-            $fotoSampul = $invitation->galeri ? $invitation->galeri->foto_sampul : '';
-            $fotoPembuka = $invitation->galeri ? $invitation->galeri->foto_pembuka : 'tema/foto/default.png';
-            $fotoAcara = $invitation->galeri ? $invitation->galeri->foto_acara : 'tema/foto/default.png';
-            $fotoCerita = $invitation->galeri ? $invitation->galeri->foto_cerita : 'tema/foto/default.png';
+            $fotoSampul = optional($invitation->galeri)->foto_sampul ?? '';
+            $fotoPembuka = optional($invitation->galeri)->foto_pembuka ?? 'tema/foto/default.png';
+            $fotoAcara = optional($invitation->galeri)->foto_acara ?? 'tema/foto/default.png';
+            $fotoCerita = optional($invitation->galeri)->foto_cerita ?? 'tema/foto/default.png';
 
             $theme = Theme::findOrFail($invitation->theme_id);
 
@@ -198,11 +204,11 @@ class InvitationController extends Controller
                 'fotoCerita' => $fotoCerita,
             ]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat undangan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Undangan tidak ditemukan atau Anda tidak memiliki akses.');
         }
     }
 
-    public function showForGuest($slug, $guestName)
+    public function showForGuest($userId, $slug, $guestName)
     {
         try {
             $invitation = Invitation::with([
@@ -218,14 +224,15 @@ class InvitationController extends Controller
                 'tekspenutup'
             ])
                 ->where('slug', $slug)
+                ->where('user_id', $userId)
                 ->firstOrFail();
 
-            $guestData = Tamu::where('nama_tamu', $guestName)->firstOrFail();
+            $guestData = Tamu::where('nama_tamu', $guestName)->first();
 
-            $fotoSampul = $invitation->galeri ? $invitation->galeri->foto_sampul : '';
-            $fotoPembuka = $invitation->galeri ? $invitation->galeri->foto_pembuka : 'tema/foto/default.png';
-            $fotoAcara = $invitation->galeri ? $invitation->galeri->foto_acara : 'tema/foto/default.png';
-            $fotoCerita = $invitation->galeri ? $invitation->galeri->foto_cerita : 'tema/foto/default.png';
+            $fotoSampul = optional($invitation->galeri)->foto_sampul ?? '';
+            $fotoPembuka = optional($invitation->galeri)->foto_pembuka ?? 'tema/foto/default.png';
+            $fotoAcara = optional($invitation->galeri)->foto_acara ?? 'tema/foto/default.png';
+            $fotoCerita = optional($invitation->galeri)->foto_cerita ?? 'tema/foto/default.png';
 
             $theme = Theme::findOrFail($invitation->theme_id);
 
@@ -251,7 +258,7 @@ class InvitationController extends Controller
                 'fotoCerita' => $fotoCerita,
             ]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memuat undangan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Undangan tidak ditemukan atau terjadi kesalahan.');
         }
     }
 }

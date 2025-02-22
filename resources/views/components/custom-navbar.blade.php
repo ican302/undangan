@@ -108,6 +108,9 @@
             </div>
             <!-- Mobile Menu Button -->
             <div class="-me-2 flex items-center sm:hidden z-50">
+                <span class="mt-[0.10rem] font-montserrat">
+                    MENU
+                </span>
                 <button @click="open = !open"
                     class="inline-flex items-center justify-center p-2 rounded-md transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">

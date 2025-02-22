@@ -141,7 +141,7 @@
                                             <td class="px-6 py-4">{{ $guest->nama_tamu }}</td>
                                             <td class="px-6 py-4 flex justify-end gap-2">
                                                 <button id="copyButton_{{ $guest->id }}"
-                                                    onclick="copyLink('{{ route('invitation.show.guest', ['slug' => $invitation->slug, 'guestName' => Str::slug($guest->nama_tamu)]) }}', 'copyButton_{{ $guest->id }}')"
+                                                    onclick="copyLink('{{ route('invitation.show.guest', ['userId' => $invitation->user_id, 'slug' => $invitation->slug, 'guestName' => Str::slug($guest->nama_tamu)]) }}', 'copyButton_{{ $guest->id }}')"
                                                     class="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 flex items-center gap-2">
                                                     <i class="fas fa-copy"></i>
                                                     <span>Copy Link</span>

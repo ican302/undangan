@@ -3,6 +3,7 @@
 @section('title', 'Undangan Pernikahan Digital')
 
 @section('content')
+
     <!-- Background -->
     <div class="bg-container absolute inset-0 z-0"></div>
 
@@ -50,47 +51,47 @@
                                             <div class="splide__track">
                                                 <ul class="splide__list">
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/monochrome/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/premium-1/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 1">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/luxury/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/premium-2/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 1">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/minimalist/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/premium-3/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 1">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-1/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/premium-4/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 1">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-2/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/basic-1/thumbnail.jpg') }}"
+                                                            class="block object-cover object-center transition-transform duration-500 hover:scale-110"
+                                                            alt="Theme 1">
+                                                    </li>
+                                                    <li class="splide__slide">
+                                                        <img src="{{ asset('tema/basic-2/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 2">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-3/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/basic-3/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 2">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-4/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/basic-4/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 2">
                                                     </li>
                                                     <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-5/thumbnail.jpg') }}"
-                                                            class="block object-cover object-center transition-transform duration-500 hover:scale-110"
-                                                            alt="Theme 2">
-                                                    </li>
-                                                    <li class="splide__slide">
-                                                        <img src="{{ asset('tema/floral-6/thumbnail.jpg') }}"
+                                                        <img src="{{ asset('tema/basic-5/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 2">
                                                     </li>
@@ -425,4 +426,5 @@
         data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-duration="700">
         <i class="fa-brands fa-whatsapp text-4xl"></i>
     </a>
+
 @endsection

@@ -155,6 +155,34 @@
     </div>
 
     <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.addEventListener('keydown', event => {
+            if (
+                event.key === "F12" ||
+                (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J" || event.key === "C" ||
+                    event.key === "K")) ||
+                (event.ctrlKey && event.key === "U") ||
+                (event.metaKey && event.altKey && (event.key === "I" || event.key === "J" || event.key === "U")) ||
+                (event.metaKey && event.shiftKey && (event.key === "C" || event.key === "K"))
+            ) {
+                event.preventDefault();
+            }
+        });
+
+        let devtoolsOpen = false;
+        setInterval(() => {
+            const widthThreshold = window.outerWidth - window.innerWidth > 100;
+            const heightThreshold = window.outerHeight - window.innerHeight > 100;
+            if (widthThreshold || heightThreshold) {
+                if (!devtoolsOpen) {
+                    devtoolsOpen = true;
+                }
+            } else {
+                devtoolsOpen = false;
+            }
+        }, 500);
+
         function toggleDropdown(buttonId, menuId) {
             const dropdownButton = document.getElementById(buttonId);
             const dropdownMenu = document.getElementById(menuId);

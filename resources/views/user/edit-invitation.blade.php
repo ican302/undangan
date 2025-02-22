@@ -10,10 +10,13 @@
                 <i class="fa-solid fa-clock text-lg"></i>
                 <span class="text-xs">Acara</span>
             </a>
-            <a href="#streaming" class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
-                <i class="fas fa-broadcast-tower text-lg"></i>
-                <span class="text-xs">Streaming</span>
-            </a>
+            @if ($isPremium)
+                <a href="#streaming"
+                    class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
+                    <i class="fas fa-broadcast-tower text-lg"></i>
+                    <span class="text-xs">Streaming</span>
+                </a>
+            @endif
             <a href="#foto-video"
                 class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
                 <i class="fa-solid fa-photo-film text-lg"></i>
@@ -27,11 +30,13 @@
                 <i class="fas fa-quote-right text-lg"></i>
                 <span class="text-xs">Quote</span>
             </a>
-            <a href="#kado-digital"
-                class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
-                <i class="fas fa-gift text-lg"></i>
-                <span class="text-xs">Kado Digital</span>
-            </a>
+            @if ($isPremium)
+                <a href="#kado-digital"
+                    class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
+                    <i class="fas fa-gift text-lg"></i>
+                    <span class="text-xs">Kado Digital</span>
+                </a>
+            @endif
             <a href="#musik" class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
                 <i class="fas fa-music text-lg"></i>
                 <span class="text-xs">Musik</span>
@@ -40,11 +45,13 @@
                 <i class="fas fa-user-friends text-lg"></i>
                 <span class="text-xs">Tamu</span>
             </a>
-            <a href="#ucapan-doa"
-                class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
-                <i class="fa-solid fa-comment-dots text-lg"></i>
-                <span class="text-xs">Ucapan & Doa</span>
-            </a>
+            @if ($isPremium)
+                <a href="#ucapan-doa"
+                    class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
+                    <i class="fa-solid fa-comment-dots text-lg"></i>
+                    <span class="text-xs">Ucapan & Doa</span>
+                </a>
+            @endif
             <a href="#teks" class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
                 <i class="fa-solid fa-file-lines text-lg"></i>
                 <span class="text-xs">Teks</span>

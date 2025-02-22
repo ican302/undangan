@@ -257,6 +257,15 @@
                                             @method('PUT')
                                             <div class="grid gap-4 mb-4 grid-cols-2">
                                                 <div class="col-span-2">
+                                                    <label for="id" class="block mb-2">
+                                                        ID Tema
+                                                    </label>
+                                                    <input type="text" name="id" id="id"
+                                                        class="custom-input" value="{{ $theme->id }}" required
+                                                        oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
+                                                        oninput="this.setCustomValidity('')">
+                                                </div>
+                                                <div class="col-span-2">
                                                     <label for="name" class="block mb-2">
                                                         Nama Tema
                                                     </label>

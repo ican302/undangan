@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Theme;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ThemeController extends Controller
 {
@@ -55,6 +56,7 @@ class ThemeController extends Controller
     {
         try {
             $request->validate([
+                'id' => 'required|integer|unique:themes,id,' . $id,
                 'name' => 'required',
                 'view_file' => 'required',
                 'thumbnail' => 'required',
@@ -69,7 +71,10 @@ class ThemeController extends Controller
                 return redirect()->back()->withErrors(['slug' => 'Slug sudah ada, silakan gunakan nama tema yang berbeda']);
             }
 
+            $oldId = $theme->id;
+
             $theme->update([
+                'id' => $request->id,
                 'name' => $request->name,
                 'view_file' => $request->view_file,
                 'thumbnail' => $request->thumbnail,
@@ -77,6 +82,10 @@ class ThemeController extends Controller
                 'slug' => $slug,
                 'tipe' => $request->tipe,
             ]);
+
+            if ($oldId != $request->id) {
+                DB::table('themes')->where('id', $oldId)->delete();
+            }
 
             return redirect()->route('admin.tema')->with('success', 'Tema berhasil diperbarui');
         } catch (\Exception $e) {
