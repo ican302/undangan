@@ -19,6 +19,7 @@ use App\Models\TeksPenutup;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class InvitationController extends Controller
 {
@@ -208,10 +209,10 @@ class InvitationController extends Controller
         }
     }
 
-    public function showForGuest($userId, $slug, $guestName)
+    public function showForGuest($hashedUserId, $slug, $guestName)
     {
         try {
-            $invitation = Invitation::with([
+            $invitations = Invitation::with([
                 'mempelai',
                 'acara',
                 'streaming',
@@ -222,35 +223,45 @@ class InvitationController extends Controller
                 'music',
                 'tekspembuka',
                 'tekspenutup'
-            ])
-                ->where('slug', $slug)
-                ->where('user_id', $userId)
-                ->firstOrFail();
+            ])->where('slug', $slug)->get();
+
+            $matchedInvitation = null;
+
+            foreach ($invitations as $invitation) {
+                if (md5($invitation->user_id) === $hashedUserId) {
+                    $matchedInvitation = $invitation;
+                    break;
+                }
+            }
+
+            if (!$matchedInvitation) {
+                abort(404);
+            }
 
             $guestData = Tamu::where('nama_tamu', $guestName)->first();
 
-            $fotoSampul = optional($invitation->galeri)->foto_sampul ?? '';
-            $fotoPembuka = optional($invitation->galeri)->foto_pembuka ?? 'tema/foto/default.png';
-            $fotoAcara = optional($invitation->galeri)->foto_acara ?? 'tema/foto/default.png';
-            $fotoCerita = optional($invitation->galeri)->foto_cerita ?? 'tema/foto/default.png';
+            $fotoSampul = optional($matchedInvitation->galeri)->foto_sampul ?? '';
+            $fotoPembuka = optional($matchedInvitation->galeri)->foto_pembuka ?? 'tema/foto/default.png';
+            $fotoAcara = optional($matchedInvitation->galeri)->foto_acara ?? 'tema/foto/default.png';
+            $fotoCerita = optional($matchedInvitation->galeri)->foto_cerita ?? 'tema/foto/default.png';
 
-            $theme = Theme::findOrFail($invitation->theme_id);
+            $theme = Theme::findOrFail($matchedInvitation->theme_id);
 
-            $comments = Comment::where('invitation_id', $invitation->id)
+            $comments = Comment::where('invitation_id', $matchedInvitation->id)
                 ->where('active', true)
                 ->latest()
                 ->get();
 
-            $acara = $invitation->acara->first();
+            $acara = $matchedInvitation->acara->first();
             $tanggalAcara = $acara ? $acara->tanggal_acara : null;
 
             return view('tema.' . $theme->view_file, [
-                'invitation' => $invitation,
+                'invitation' => $matchedInvitation,
                 'theme' => $theme,
                 'tanggalAcara' => $tanggalAcara,
-                'cerita' => $invitation->cerita,
+                'cerita' => $matchedInvitation->cerita,
                 'comments' => $comments,
-                'commentsEnabled' => $invitation->comments_enabled,
+                'commentsEnabled' => $matchedInvitation->comments_enabled,
                 'guestData' => $guestData,
                 'fotoSampul' => $fotoSampul,
                 'fotoPembuka' => $fotoPembuka,

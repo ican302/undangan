@@ -178,7 +178,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 // Route Kirim Undangan
-Route::get('/invitation/{userId}/{slug}/{guestName}', [InvitationController::class, 'showForGuest'])->name('invitation.show.guest');
+Route::get('/invitation/{hashedUserId}/{slug}/{guestName}', [InvitationController::class, 'showForGuest'])->name('invitation.show.guest');
 
 // Route Kirim RSVP
 Route::post('/rsvp/{invitation}', [RsvpController::class, 'store'])->name('rsvp.store');
