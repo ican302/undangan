@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Demo Premium-1</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('images/web-icon.png') }}">
+
     <!-- Resources -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
