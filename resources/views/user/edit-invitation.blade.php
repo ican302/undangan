@@ -2,6 +2,15 @@
     <!-- Bottom Navbar -->
     <div class="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-gray-200">
         <div id="bottom-navbar" class="flex overflow-x-auto whitespace-nowrap justify-around items-center py-2">
+            <button id="scroll-left"
+                class="absolute left-1 top-[38%] -translate-y-1/2 z-10 text-white bg-gray-800 hover:bg-black p-2 shadow-lg rounded hidden">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="scroll-right"
+                class="absolute right-1 top-[38%] -translate-y-1/2 z-10 text-white bg-gray-800 hover:bg-black p-2 shadow-lg rounded hidden">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
             <a href="#pengantin" class="flex flex-col items-center text-gray-500 hover:text-gray-800 min-w-[64px] mx-4">
                 <i class="fa-solid fa-heart text-lg"></i>
                 <span class="text-xs">Pengantin</span>
@@ -65,14 +74,14 @@
     <!-- Tombol Navigasi Up & Down -->
     <div class="fixed bottom-24 md:bottom-20 right-2 z-30 flex flex-col space-y-2">
         <!-- Tombol ke Atas -->
-        <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
-            class="bg-gray-800 text-white rounded-full p-3 shadow-lg hover:bg-black transition-colors">
+        <a id="scroll-up-btn" href="#" onclick="scrollToTop(); return false;"
+            class="bg-gray-800 text-white rounded-full p-3 shadow-lg hover:bg-black transition-colors hidden">
             <i class="fas fa-arrow-up text-lg"></i>
         </a>
+
         <!-- Tombol ke Bawah -->
-        <a href="#"
-            onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); return false;"
-            class="bg-gray-800 text-white rounded-full p-3 shadow-lg hover:bg-black transition-colors">
+        <a id="scroll-down-btn" href="#" onclick="scrollToBottom(); return false;"
+            class="bg-gray-800 text-white rounded-full p-3 shadow-lg hover:bg-black transition-colors hidden">
             <i class="fas fa-arrow-down text-lg"></i>
         </a>
     </div>

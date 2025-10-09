@@ -14,11 +14,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Croissant+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+        rel="stylesheet">
 
     <!-- Flowbite -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -43,6 +46,19 @@
             object-fit: contain;
         }
 
+        .vertical-text {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
+
+        .text-shadow {
+            text-shadow: -5px 5px 0px rgba(255, 255, 255, 0.2);
+        }
+
+        .text-shadow-2 {
+            text-shadow: 0px 5px 0px rgba(0, 0, 0, 0.2);
+        }
+
         .px-4::-webkit-scrollbar {
             width: 5px;
         }
@@ -53,82 +69,96 @@
         }
 
         .px-4::-webkit-scrollbar-thumb {
-            background-color: #6b7280;
+            background-color: #EEEEEE;
             border-radius: 10px;
         }
 
         .px-4::-webkit-scrollbar-thumb:hover {
-            background-color: #6b7280;
+            background-color: #EEEEEE;
         }
     </style>
 </head>
 
-<body class="antialiased" style="background-color: #1d1a1a; overflow: hidden;">
+<body class="antialiased" style="overflow: hidden; background-color: #EEEEEE;">
 
     <!-- Sampul -->
     <section>
         <div id="cover-page"
             class="relative flex flex-col justify-between items-center min-h-screen mx-auto max-w-[500px]"
-            style="background-image: url('{{ asset($fotoSampul ?? '') }}'); background-position: center; background-size: cover;">
-            <!-- Filter -->
-            <div class="absolute inset-0 bg-black/50"></div>
-            <!-- Flash Message -->
-            @if (session('success') || session('error'))
-                <div id="flash-message"
-                    class="absolute top-5 left-1/2 transform -translate-x-1/2 z-20 flex items-center p-4 text-sm shadow-lg rounded-lg w-[90%] max-w-[400px]"
-                    style="background-color: rgba(255, 255, 255, 0.8); visibility: hidden;">
-                    <i
-                        class="{{ session('success') ? 'fas fa-check-circle text-green-800' : 'fas fa-exclamation-circle text-red-800' }} flex-shrink-0 inline w-4 h-4 mr-3"></i>
-                    <span class="sr-only">{{ session('success') ? 'Success' : 'Error' }}</span>
-                    <div class="text-sm {{ session('success') ? 'text-green-800' : 'text-red-800' }}">
-                        {{ session('success') ?? session('error') }}
+            style="background-image: url('{{ asset('tema/premium-5/bg.webp') }}'); 
+            background-size: cover; background-attachment: fixed;">
+            <div class="flex flex-col justify-center py-5 space-y-10 flex-grow w-full">
+                <!-- Flash Message -->
+                @if (session('success') || session('error'))
+                    <div id="flash-message"
+                        class="absolute top-5 left-1/2 transform -translate-x-1/2 z-20 flex items-center p-4 text-sm shadow-lg rounded-lg w-[90%] max-w-[400px]"
+                        style="background-color: rgba(255, 255, 255, 0.8); visibility: hidden;">
+                        <i
+                            class="{{ session('success') ? 'fas fa-check-circle text-green-800' : 'fas fa-exclamation-circle text-red-800' }} flex-shrink-0 inline w-4 h-4 mr-3"></i>
+                        <span class="sr-only">{{ session('success') ? 'Success' : 'Error' }}</span>
+                        <div class="text-sm {{ session('success') ? 'text-green-800' : 'text-red-800' }}">
+                            {{ session('success') ?? session('error') }}
+                        </div>
                     </div>
-                </div>
-            @endif
-            <!-- Judul -->
-            <div class="text-center mt-16 z-10 text-white text-3xl" data-aos="fade-right" data-aos-easing="ease-in-sine"
-                data-aos-duration="800" data-aos-delay="500">
-                <div class="font-pinyon">
-                    The Wedding of
-                </div>
-                <div class="mt-1 font-cormorant font-semibold uppercase">
-                    @if ($invitation->mempelai)
-                        {{ $invitation->mempelai->panggilan_pria ?? '-' }}
-                        &
-                        {{ $invitation->mempelai->panggilan_wanita ?? '-' }}
+                @endif
+                <!-- Foto Cover -->
+                <div class="-rotate-3 p-[0.65rem] pb-5 md:mx-auto mx-10 bg-white relative shadow-lg">
+                    <img src="{{ asset('tema/premium-5/ornament-1.webp') }}" alt="Ornament"
+                        class="absolute -top-7 -left-10 w-32 h-28 object-contain z-10 -rotate-12" />
+                    @if (!empty($fotoSampul))
+                        <div class="relative flex justify-center pb-5" data-aos="fade-left"
+                            data-aos-easing="ease-in-sine" data-aos-duration="800">
+                            <img src="{{ asset($fotoSampul) }}" alt="Cover Image" class="w-80 h-80 object-cover">
+                        </div>
                     @else
-                        - & -
+                        <p class="text-red-600 font-cormorant text-lg font-bold my-20 text-center">
+                            Anda belum mengupload foto sampul
+                        </p>
                     @endif
+                    <img src="{{ asset('tema/premium-5/flower-1.webp') }}" alt="Flower"
+                        class="absolute -bottom-12 -right-20 w-48 h-48 object-contain z-10 rotate-12" />
+                    <div class="absolute bottom-3 bg-[#FFB3B8]/75 p-3 text-white" data-aos="fade-right"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        <div class="text-xl md:text-2xl font-pinyon leading-none">
+                            The Wedding of
+                        </div>
+                        <div class="text-2xl md:text-3xl font-cormorant font-semibold uppercase mt-2 leading-none">
+                            @if ($invitation->mempelai)
+                                {{ $invitation->mempelai->panggilan_pria ?? '-' }}
+                                &
+                                {{ $invitation->mempelai->panggilan_wanita ?? '-' }}
+                            @else
+                                - & -
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- Nama Tamu -->
-            <div class="text-center mb-16 z-10">
-                <div class="text-white font-poppins">
-                    <div class="text-sm" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-duration="800"
-                        data-aos-delay="500">
-                        Kepada Yth :
-                    </div>
-                    <div class="text-sm mt-1" data-aos="fade-left" data-aos-easing="ease-in-sine"
-                        data-aos-duration="800" data-aos-delay="500">
-                        Bapak/Ibu/Saudara/i
-                    </div>
-                    <div class="rounded text-lg font-croissant mt-5 mb-1" data-aos="fade-left"
-                        data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="500">
-                        @if (isset($guestData) && !empty($guestData->nama_tamu))
-                            {{ $guestData->nama_tamu }}
-                        @else
-                            -
-                        @endif
-                    </div>
-                    <hr class="border-white" data-aos="fade-left" data-aos-easing="ease-in-sine" data-aos-duration="800"
-                        data-aos-delay="500">
-                    <div data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="800">
-                        <button type="button" onclick="openInvitation()"
-                            class="text-white border py-2 px-6 mt-5 font-cormorant text-lg focus:outline-none focus:ring-2 focus:ring-[#000000] focus:ring-offset-1 transition duration-150"
-                            style="background-color: #000000;">
-                            <i class="fa-solid fa-envelope mr-1"></i>
-                            Buka Undangan
-                        </button>
+                <!-- Nama Tamu -->
+                <div class="text-center" data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800"
+                    data-aos-delay="500">
+                    <div class="font-cormorant">
+                        <div class="mt-[-0.35rem]">
+                            Kepada Yth :
+                        </div>
+                        <div class="mt-1">
+                            Bapak/Ibu/Saudara/i
+                        </div>
+                        <div class="rounded text-xl mt-5 mb-1 font-croissant">
+                            @if (isset($guestData) && !empty($guestData->nama_tamu))
+                                {{ $guestData->nama_tamu }}
+                            @else
+                                -
+                            @endif
+                        </div>
+                        <hr class="border-[#FFB3B8] w-48 mx-auto">
+                        <div>
+                            <button type="button" onclick="openInvitation()"
+                                class="text-white py-2 px-6 mt-5 font-cormorant font-bold text-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FFB3B8] focus:ring-offset-1 transition duration-150"
+                                style="background-color: #FFB3B8;">
+                                <i class="fa-solid fa-envelope mr-1"></i>
+                                Buka Undangan
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,171 +167,202 @@
 
     <!-- Pembuka -->
     <section id="main-invitation">
-        <div class="bg-black flex justify-center items-center min-h-screen max-w-[500px] mx-auto">
-            <div class="text-white p-8 flex flex-col">
-                <div class="grid md:grid-cols-[1fr_auto] gap-6 px-10 py-3 md:py-0 relative">
-                    <!-- Foto -->
-                    <div class="relative mx-auto my-5 md:my-10 max-w-[17rem] md:max-w-md lg:max-w-lg xl:max-w-xl">
-                        <img src="{{ asset($fotoPembuka ?? 'tema/foto/default.png') }}" alt="Foto Pembuka"
-                            class="w-full h-auto object-cover shadow-lg"
-                            style="box-shadow: -20px -20px 0px -1px rgba(255,255,255,1);" data-aos="fade-right"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                        <!-- Teks -->
-                        <div class="absolute bottom-1 bg-black/75 p-3 text-white" data-aos="fade-left"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                            <div class="text-xl md:text-2xl font-pinyon leading-none">
-                                The Wedding of
-                            </div>
-                            <div class="text-2xl md:text-3xl font-cormorant font-semibold uppercase mt-2 leading-none">
-                                {{ $invitation->mempelai ? $invitation->mempelai->panggilan_pria : '-' }}
-                                &
-                                {{ $invitation->mempelai ? $invitation->mempelai->panggilan_wanita : '-' }}
-                            </div>
+        <div class="relative flex flex-col justify-center items-start min-h-screen w-full mx-auto max-w-[500px]"
+            style="background-image: url('{{ asset('tema/premium-5/bg.webp') }}'); 
+            background-size: cover; background-attachment: fixed;">
+            <!-- Foto Pembuka -->
+            <div class="flex justify-center mx-auto mt-14">
+                <div class="rotate-3 py-3 px-[0.65rem] mx-8 bg-white relative shadow-lg">
+                    <img src="{{ asset('tema/premium-5/ornament-2.png') }}" alt="Ornament"
+                        class="absolute -top-7 -right-10 w-32 h-28 object-contain z-10 rotate-12" />
+                    @if (!empty($fotoPembuka))
+                        <div class="relative flex justify-center">
+                            <img src="{{ asset($fotoPembuka) }}" alt="Opening Image" class="w-72 h-72 object-cover"
+                                data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800">
                         </div>
+                    @endif
+                    <img src="{{ asset('tema/premium-5/flower-2.png') }}" alt="Flower"
+                        class="absolute -bottom-12 -left-20 w-48 h-48 object-contain z-10 -rotate-12" />
+                </div>
+            </div>
+            <!-- Tanggal Acara -->
+            <div class="mt-8 mx-auto text-center">
+                <div class="relative mb-4" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                    <div class="w-16 mx-auto border-t-2 border-[#FFB3B8]"></div>
+                </div>
+                <div class="text-2xl md:text-3xl font-cormorant font-semibold" data-aos="zoom-in"
+                    data-aos-duration="800">
+                    @if ($tanggalAcara)
+                        {{ \Carbon\Carbon::parse($tanggalAcara)->translatedFormat('l, d F Y') }}
+                    @else
+                        -
+                    @endif
+                </div>
+                <div class="relative mt-4" data-aos="fade-left" data-aos-easing="ease-in-sine"
+                    data-aos-duration="800">
+                    <div class="w-16 mx-auto border-t-2 border-[#FFB3B8]"></div>
+                </div>
+            </div>
+            <!-- Countdown -->
+            <div class="relative w-full max-w-80 mt-5 mb-56 mx-auto">
+                <div id="countdown" class="text-center font-cormorant flex justify-center space-x-4 mx-2">
+                    <div class="bg-[#FFB3B8]/50 text-center border-b-[3px] border-[#FFB3B8] px-2 mt-5"
+                        data-aos="flip-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        <span class="text-xl w-12 h-12 flex items-center justify-center days">
+                            00
+                        </span>
+                        <span class="pb-3 flex items-center justify-center">
+                            Hari
+                        </span>
                     </div>
-                    <!-- Tanggal Acara -->
-                    <div class="flex flex-col md:flex-col-reverse items-center justify-center text-center gap-2 md:gap-0"
-                        data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800">
-                        <div class="hidden md:block w-[3px] h-[7rem] bg-white"></div>
-                        <div class="flex items-center gap-4 md:flex-col md:gap-0">
-                            <div class="block md:hidden h-[3px] w-screen bg-white"></div>
-                            <div class="text-3xl md:text-5xl font-croissant leading-none">
-                                @if ($tanggalAcara)
-                                    {{ \Carbon\Carbon::parse($tanggalAcara)->format('d') }}
-                                @else
-                                    -
-                                @endif
-                            </div>
-                            <div class="text-2xl md:text-xl font-cormorant font-semibold leading-none">
-                                @if ($tanggalAcara)
-                                    {{ \Carbon\Carbon::parse($tanggalAcara)->format('F') }}
-                                @else
-                                    -
-                                @endif
-                            </div>
-                            <div class="text-3xl md:text-lg font-croissant md:font-montserrat leading-none">
-                                @if ($tanggalAcara)
-                                    {{ \Carbon\Carbon::parse($tanggalAcara)->format('Y') }}
-                                @else
-                                    -
-                                @endif
-                            </div>
-                            <div class="block md:hidden h-[3px] w-screen bg-white"></div>
-                        </div>
-                        <div class="hidden md:block w-[3px] h-[7rem] bg-white"></div>
+                    <div class="bg-[#FFB3B8]/50 text-center border-b-[3px] border-[#FFB3B8] px-2 mt-5"
+                        data-aos="flip-up" data-aos-easing="ease-in-sine" data-aos-duration="800"
+                        data-aos-delay="200">
+                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center hours">
+                            00
+                        </span>
+                        <span class="pb-3 flex items-center justify-center">
+                            Jam
+                        </span>
+                    </div>
+                    <div class="bg-[#FFB3B8]/50 text-center border-b-[3px] border-[#FFB3B8] px-2 mt-5"data-aos="flip-up"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="400">
+                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center minutes">
+                            00
+                        </span>
+                        <span class="pb-3 flex items-center justify-center">
+                            Menit
+                        </span>
+                    </div>
+                    <div class="bg-[#FFB3B8]/50 text-center border-b-[3px] border-[#FFB3B8] px-2 mt-5"data-aos="flip-up"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="600">
+                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center seconds">
+                            00
+                        </span>
+                        <span class="pb-3 flex items-center justify-center">
+                            Detik
+                        </span>
                     </div>
                 </div>
+            </div>
+            <!-- Frame -->
+            <div class="absolute bottom-0 w-full">
+                <img src="{{ asset('tema/premium-5/frame-2.png') }}" alt="Frame Atas" class="object-cover">
             </div>
         </div>
     </section>
 
     <!-- Mempelai -->
     <section>
-        <div
-            class="bg-white relative flex flex-col justify-center items-start min-h-screen w-full mx-auto max-w-[500px]">
+        <div class="bg-white relative flex flex-col min-h-screen w-full mx-auto max-w-[500px]">
             <!-- Teks Pembuka -->
-            <div class="text-black pt-8 px-8">
-                <div class="text-3xl" data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="800">
-                    <div class="font-pinyon">
+            <div class="mx-5 mb-5 mt-10">
+                <div class="text-3xl">
+                    <div class="font-pinyon" data-aos="fade-right" data-aos-easing="ease-in-sine"
+                        data-aos-duration="800">
                         We Are Getting
                     </div>
-                    <div class="mt-1 font-cormorant font-semibold uppercase">
+                    <div class="mt-1 font-cormorant font-bold uppercase" data-aos="fade-left"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800">
                         Married!
                     </div>
                 </div>
-                <div class="text-sm mt-7" data-aos="fade-left" data-aos-easing="ease-in-sine"
-                    data-aos-duration="800">
+                <div class="text-sm mt-7" data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
                     <div class="font-croissant">
                         {{ $invitation->tekspembuka->salam ?? 'Assalamu’alaikum Wr. Wb.' }}
                     </div>
-                    <div class="font-poppins mt-2">
+                    <div class="text-lg mt-2 font-cormorant">
                         {{ $invitation->tekspembuka->teks ?? 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta’ala, Insya Allah kami akan menyelenggarakan acara pernikahan :' }}
                     </div>
                 </div>
             </div>
             <!-- Mempelai Pria -->
-            <div class="mt-8 mb-10 relative" data-aos="fade-right" data-aos-easing="ease-in-sine"
-                data-aos-duration="800">
-                <div class="relative z-10">
+            <div class="flex flex-col justify-center mx-auto my-10">
+                <div class="-rotate-3 py-3 px-[0.65rem] mx-8 bg-white relative shadow-lg">
+                    <img src="{{ asset('tema/premium-5/ornament-1.webp') }}" alt="Ornament"
+                        class="absolute -top-7 -left-10 w-32 h-28 object-contain z-10 -rotate-12" />
                     @if ($invitation->mempelai && $invitation->mempelai->foto_pria)
-                        <img src="{{ asset($invitation->mempelai->foto_pria) }}" alt=""
-                            class="w-64 h-64 object-cover" style="box-shadow: 20px 20px 0px -1px rgba(0,0,0,1);">
+                        <div class="relative flex justify-center">
+                            <img src="{{ asset($invitation->mempelai->foto_pria) }}" alt="Mempelai Pria"
+                                class="w-72 h-72 object-cover" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                                data-aos-duration="800">
+                        </div>
                     @else
-                        <p class="pl-5 mt-10 text-red-600 font-montserrat">Anda belum mengisi data mempelai</p>
+                        <p class="text-red-600 font-montserrat">Anda belum mengisi data mempelai</p>
                     @endif
+                    <img src="{{ asset('tema/premium-5/flower-1.webp') }}" alt="Flower"
+                        class="absolute -bottom-12 -right-20 w-48 h-48 object-contain z-10 rotate-12" />
                 </div>
-                <div class="bg-gray-100 pt-5 pb-10 pl-5 mt-[-50px] w-[21rem] border-t border-b border-r border-black">
-                    <h2 class="text-xl font-croissant font-semibold mt-20">
+                <div class="text-center" data-aos="fade-right" data-aos-easing="ease-in-sine"
+                    data-aos-duration="800">
+                    <h2 class="text-xl font-croissant mt-20">
                         {{ $invitation->mempelai ? $invitation->mempelai->nama_pria : '-' }}
                     </h2>
-                    <p class="text-sm font-poppins mt-3">
+                    <p class="font-cormorant mt-3">
                         Putra ke-{{ $invitation->mempelai ? $invitation->mempelai->anak_ke_pria : '' }}
                     </p>
-                    <p class="text-sm font-poppins">
+                    <p class="font-cormorant">
                         Bapak {{ $invitation->mempelai ? $invitation->mempelai->ayah_pria : '' }}
                     </p>
-                    <p class="text-sm font-poppins">
+                    <p class="font-cormorant">
                         &
                     </p>
-                    <p class="text-sm font-poppins mb-3">
+                    <p class="font-cormorant mb-3">
                         Ibu {{ $invitation->mempelai ? $invitation->mempelai->ibu_pria : '' }}
                     </p>
-                    <a href="{{ $invitation->mempelai && $invitation->mempelai->instagram_link_pria ? $invitation->mempelai->instagram_link_pria : '#' }}"
-                        target="_blank"
-                        class="flex items-center justify-center gap-2 mt-5 py-[0.35rem] px-6 bg-black text-white font-cormorant focus:ring-2 focus:ring-black focus:ring-offset-1 transition ease-in-out duration-150 w-fit
-                        {{ !$invitation->mempelai || !$invitation->mempelai->instagram_link_pria ? 'pointer-events-none opacity-50' : '' }}">
-                        <i class="fab fa-instagram"></i>
-                        Instagram
-                    </a>
-                </div>
-            </div>
-            <!-- Divider -->
-            <div class="flex items-center justify-center text-center gap-4 w-full" data-aos="zoom-in"
-                data-aos-easing="ease-in-sine" data-aos-duration="800">
-                <div class="h-[1px] bg-black flex-1"></div>
-                <div class="text-5xl font-cormorant font-semibold text-black mx-4">
-                    &
-                </div>
-                <div class="h-[1px] bg-black flex-1"></div>
-            </div>
-            <!-- Mempelai Wanita -->
-            <div class="mt-8 mb-10 flex justify-end ml-auto" data-aos="fade-left" data-aos-easing="ease-in-sine"
-                data-aos-duration="800">
-                <div class="flex flex-col items-end">
-                    <div class="relative z-10">
-                        @if ($invitation->mempelai && $invitation->mempelai->foto_wanita)
-                            <img src="{{ asset($invitation->mempelai->foto_wanita) }}" alt=""
-                                class="w-64 h-64 object-cover" style="box-shadow: -21px 20px 0px -1px rgba(0,0,0,1);">
-                        @else
-                            <p class="pr-5 mt-10 text-red-600 font-montserrat">Anda belum mengisi data mempelai</p>
-                        @endif
-                    </div>
-                    <div
-                        class="bg-gray-100 pt-5 pb-10 pr-5 mt-[-50px] w-[21rem] border-t border-b border-l border-black">
-                        <h2 class="text-xl font-croissant font-semibold mt-20 flex justify-end">
-                            {{ $invitation->mempelai ? $invitation->mempelai->nama_wanita : '-' }}
-                        </h2>
-                        <p class="text-sm font-poppins mt-3 flex justify-end">
-                            Putri ke-{{ $invitation->mempelai ? $invitation->mempelai->anak_ke_wanita : '' }}
-                        </p>
-                        <p class="text-sm font-poppins mb-3 flex justify-end">
-                            Bapak {{ $invitation->mempelai ? $invitation->mempelai->ayah_wanita : '' }}
-                        </p>
-                        <p class="text-sm font-poppins mb-3 flex justify-end">
-                            &
-                        </p>
-                        <p class="text-sm font-poppins mb-3 flex justify-end">
-                            Ibu {{ $invitation->mempelai ? $invitation->mempelai->ibu_wanita : '' }}
-                        </p>
-                        <div class="flex justify-end mt-5">
-                            <a href="{{ $invitation->mempelai && $invitation->mempelai->instagram_link_wanita ? $invitation->mempelai->instagram_link_wanita : '#' }}"
-                                target="_blank"
-                                class="flex items-center gap-2 py-[0.35rem] px-6 bg-black text-white font-cormorant focus:ring-2 focus:ring-black focus:ring-offset-1 transition ease-in-out duration-150 
-                                {{ !$invitation->mempelai || !$invitation->mempelai->instagram_link_wanita ? 'pointer-events-none opacity-50' : '' }}">
+                    <div class="flex justify-center">
+                        @if ($invitation->mempelai && $invitation->mempelai->instagram_link_pria)
+                            <a href="{{ $invitation->mempelai->instagram_link_pria }}" target="_blank"
+                                class="flex items-center justify-center gap-2 mt-5 py-[0.35rem] px-6 shadow-xl bg-[#FFB3B8] text-white font-cormorant focus:ring-2 focus:ring-[#FFB3B8] focus:ring-offset-1 transition ease-in-out duration-150 w-fit">
                                 <i class="fab fa-instagram"></i>
                                 Instagram
                             </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <!-- Mempelai Wanita -->
+            <div class="flex flex-col justify-center mx-auto my-10">
+                <div class="rotate-3 py-3 px-[0.65rem] mx-8 bg-white relative shadow-lg">
+                    <img src="{{ asset('tema/premium-5/ornament-2.png') }}" alt="Ornament"
+                        class="absolute -top-7 -right-10 w-32 h-28 object-contain z-10 rotate-12" />
+                    @if ($invitation->mempelai && $invitation->mempelai->foto_wanita)
+                        <div class="relative flex justify-center">
+                            <img src="{{ asset($invitation->mempelai->foto_wanita) }}" alt="Mempelai Wanita"
+                                class="w-72 h-72 object-cover" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                                data-aos-duration="800">
                         </div>
+                    @else
+                        <p class="text-red-600 font-montserrat">Anda belum mengisi data mempelai</p>
+                    @endif
+                    <img src="{{ asset('tema/premium-5/flower-2.png') }}" alt="Flower"
+                        class="absolute -bottom-12 -left-20 w-48 h-48 object-contain z-10 -rotate-12" />
+                </div>
+                <div class="text-center" data-aos="fade-left" data-aos-easing="ease-in-sine"
+                    data-aos-duration="800">
+                    <h2 class="text-xl font-croissant mt-20">
+                        {{ $invitation->mempelai ? $invitation->mempelai->nama_wanita : '-' }}
+                    </h2>
+                    <p class="font-cormorant mt-3">
+                        Putri ke-{{ $invitation->mempelai ? $invitation->mempelai->anak_ke_wanita : '' }}
+                    </p>
+                    <p class="font-cormorant">
+                        Bapak {{ $invitation->mempelai ? $invitation->mempelai->ayah_wanita : '' }}
+                    </p>
+                    <p class="font-cormorant">
+                        &
+                    </p>
+                    <p class="font-cormorant mb-3">
+                        Ibu {{ $invitation->mempelai ? $invitation->mempelai->ibu_wanita : '' }}
+                    </p>
+                    <div class="flex justify-center">
+                        @if ($invitation->mempelai && $invitation->mempelai->instagram_link_wanita)
+                            <a href="{{ $invitation->mempelai->instagram_link_wanita }}" target="_blank"
+                                class="flex items-center justify-center gap-2 mt-5 py-[0.35rem] px-6 shadow-xl bg-[#FFB3B8] text-white font-cormorant focus:ring-2 focus:ring-[#FFB3B8] focus:ring-offset-1 transition ease-in-out duration-150 w-fit">
+                                <i class="fab fa-instagram"></i>
+                                Instagram
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -311,166 +372,182 @@
     <!-- Acara -->
     <section>
         <div class="relative flex flex-col justify-center items-center min-h-screen max-w-[500px] mx-auto"
-            style="background-image: url('{{ asset($fotoSampul ?? '') }}'); background-position: center; background-size: cover;">
-            <!-- Filter -->
-            <div class="absolute inset-0 bg-black/50 z-0"></div>
-            <!-- Foto -->
-            <div class="relative mx-auto my-10 z-10" data-aos="zoom-in" data-aos-easing="ease-in-sine"
-                data-aos-duration="800">
-                <img src="{{ asset($fotoAcara ?? 'tema/foto/default.png') }}" alt="Foto Acara"
-                    class="max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg h-auto object-cover"
-                    style="box-shadow: 0px 25px 0px -12.5px rgb(255, 255, 255);">
-            </div>
-            <!-- Countdown -->
-            <div class="relative bg-black z-5 w-full px-10 pb-10 pt-40 mt-[-150px] font-cormorant" data-aos="fade-up"
-                data-aos-easing="ease-in-sine" data-aos-duration="800">
-                <div class="text-white text-3xl text-center mb-5 flex justify-center space-x-3">
-                    <span>Save</span>
-                    <span>The</span>
-                    <span>Date</span>
-                </div>
-                <div id="countdown" class="text-center text-white flex justify-center space-x-10">
-                    <div class="text-center">
-                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center days">
-                            00
-                        </span>
-                        <span>
-                            Hari
-                        </span>
-                    </div>
-                    <div class="text-center">
-                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center hours">
-                            00
-                        </span>
-                        <span>
-                            Jam
-                        </span>
-                    </div>
-                    <div class="text-center">
-                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center minutes">
-                            00
-                        </span>
-                        <span>
-                            Menit
-                        </span>
-                    </div>
-                    <div class="text-center">
-                        <span class="text-xl p-3 w-12 h-12 flex items-center justify-center seconds">
-                            00
-                        </span>
-                        <span>
-                            Detik
-                        </span>
-                    </div>
-                </div>
+            style="background-image: url('{{ asset('tema/premium-5/bg.webp') }}'); 
+            background-size: cover; background-attachment: fixed;">
+            <!-- Frame -->
+            <div class="w-full">
+                <img src="{{ asset('tema/premium-5/frame-1.png') }}" alt="Frame Atas" class="object-cover">
             </div>
             <!-- Daftar Acara -->
             @if ($invitation->acara->isNotEmpty())
-                <div class="relative w-full text-white flex">
-                    <div class="absolute inset-0 bg-black/50 z-0"></div>
-                    <div class="bg-black w-28 h-auto z-10" data-aos="fade-right" data-aos-easing="ease-in-sine"
-                        data-aos-duration="800"></div>
-                    <div class="flex flex-col">
-                        @foreach ($invitation->acara as $acara)
-                            <div class="mx-7 w-full z-10" data-aos="fade-left" data-aos-easing="ease-in-sine"
-                                data-aos-duration="800">
-                                <div class="my-10">
-                                    <h3 class="text-5xl font-pinyon">
-                                        {{ $acara->nama_acara }}
-                                    </h3>
-                                    <div class="mt-2 font-cormorant">
-                                        <p class="text-lg">Hari/Tanggal :</p>
-                                        <p class="font-poppins text-sm mt-1">
-                                            @php
-                                                \Carbon\Carbon::setLocale('id');
-                                                $tanggalAcara = \Carbon\Carbon::parse($acara->tanggal_acara);
-                                            @endphp
-                                            {{ $tanggalAcara->translatedFormat('l') }},
-                                            {{ $tanggalAcara->translatedFormat('d') }}
-                                            {{ $tanggalAcara->translatedFormat('F') }}
-                                            {{ $tanggalAcara->translatedFormat('Y') }}
-                                        </p>
-                                        <p class="text-lg mt-3">Waktu :</p>
-                                        <p class="font-poppins text-sm mt-1">
-                                            {{ \Carbon\Carbon::parse($acara->jam_mulai)->format('H:i') }}
-                                            -
-                                            {{ \Carbon\Carbon::parse($acara->jam_selesai)->format('H:i') }}
-                                            {{ $acara->zona_waktu }}
-                                        </p>
-                                        <p class="text-lg mt-3">Tempat : {{ $acara->nama_tempat }}</p>
-                                        <p class="font-poppins text-sm mt-1">
-                                            {{ $acara->alamat_tempat }}
-                                        </p>
-                                        <div class="mt-5 w-44">
-                                            <a href="{{ $acara->link_google_maps }}" target="_blank"
-                                                class="bg-black border text-white mr-1 py-2 px-6 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition ease-in-out duration-150">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                                <span>Google Maps</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                @foreach ($invitation->acara as $acara)
+                    <div class="bg-white shadow-xl p-5 mt-24 mb-10 mx-3 flex flex-col w-[475px]">
+                        <div class="my-10 mx-5 text-center relative flex flex-col items-center">
+                            <div class="-mt-28 mb-8 z-10">
+                                <img src="{{ asset('tema/premium-5/map-icon.webp') }}" alt="Frame Atas"
+                                    class="object-cover w-24 h-auto">
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-            <!-- Streaming -->
-            @if ($invitation->streaming)
-                <div class="relative z-10 w-full p-10 text-white">
-                    <div class="bg-black/50 p-10 mx-auto flex flex-col justify-center items-center relative w-full h-auto max-w-[370px]"
-                        data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800">
-                        <div class="mx-auto my-5">
-                            <div class="grid grid-cols-1 gap-5 text-center items-center mx-auto max-w-lg lg:max-w-4xl">
-                                <div class="text-2xl font-cormorant uppercase text-nowrap">
-                                    Live Streaming
-                                </div>
-                                <div class="text-sm font-poppins font-light mt-2">
-                                    Temui kami secara virtual untuk menyaksikan acara pernikahan kami melalui siaran
-                                    langsung
-                                </div>
-                                <div class="mt-5">
-                                    <a href="{{ $invitation->streaming->link_streaming }}" target="__blank"
-                                        class="border py-2 px-6 bg-black focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition ease-in-out duration-150">
-                                        Tonton Streaming
+                            <div data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                <h3 class="text-3xl font-dmSerifDisplay">{{ $acara->nama_acara }}</h3>
+                                <hr class="border-white mt-3">
+                            </div>
+                            <div class="mt-5 font-cormorant" data-aos="fade-left" data-aos-easing="ease-in-sine"
+                                data-aos-duration="800">
+                                <p class="text-lg">Hari/Tanggal :</p>
+                                <p class="text-center mt-1">
+                                    @php
+                                        \Carbon\Carbon::setLocale('id');
+                                        $tanggalAcara = \Carbon\Carbon::parse($acara->tanggal_acara);
+                                    @endphp
+                                    {{ $tanggalAcara->translatedFormat('l') }},
+                                    {{ $tanggalAcara->translatedFormat('d') }}
+                                    {{ $tanggalAcara->translatedFormat('F') }}
+                                    {{ $tanggalAcara->translatedFormat('Y') }}
+                                </p>
+                                <p class="text-lg mt-5">Waktu :</p>
+                                <p class="text-center mt-1">
+                                    {{ \Carbon\Carbon::parse($acara->jam_mulai)->format('H:i') }}
+                                    -
+                                    {{ \Carbon\Carbon::parse($acara->jam_selesai)->format('H:i') }}
+                                    {{ $acara->zona_waktu }}
+                                </p>
+                                <p class="text-lg mt-5">Tempat :</p>
+                                <p class="text-center mt-1">{{ $acara->nama_tempat }}</p>
+                                <p class="text-center mt-1">{{ $acara->alamat_tempat }}</p>
+                                <div class="mt-7 flex justify-center">
+                                    <a href="{{ $acara->link_google_maps }}" target="_blank"
+                                        class="bg-[#FFB3B8] font-bold shadow-xl border-2 border-[#FFB3B8] text-white py-2 px-6 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 transition ease-in-out duration-150">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Google Maps</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                @endforeach
+            @else
+                <p class="text-red-600 font-montserrat">Anda belum mengisi data acara</p>
+            @endif
+            <!-- Streaming -->
+            @if ($invitation->streaming)
+                <div class="bg-white shadow-xl p-5 mt-10 mb-24 mx-3 flex flex-col max-w-[475px]" data-aos="zoom-in"
+                    data-aos-easing="ease-in-sine" data-aos-duration="800">
+                    <div class="mx-auto my-5 text-center">
+                        <div class="text-3xl text-nowrap font-dmSerifDisplay mb-5">
+                            Live Streaming
+                        </div>
+                        <div class="font-light mt-5 font-cormorant">
+                            Temui kami secara virtual untuk menyaksikan acara pernikahan kami melalui siaran
+                            langsung
+                        </div>
+                        <div class="mt-5">
+                            <a href="https://www.google.com/maps" target="_blank"
+                                class="bg-[#FFB3B8] font-bold font-cormorant shadow-xl border-2 border-[#FFB3B8] text-white py-2 px-6 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 transition ease-in-out duration-150">
+                                <i class="fas fa-video"></i>
+                                <span>Tonton Streaming</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             @endif
+            <!-- Frame -->
+            <div class="w-full">
+                <img src="{{ asset('tema/premium-5/frame-2.png') }}" alt="Frame Atas" class="object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Cerita & Quote -->
+    <section>
+        <div class="bg-white relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]">
+            <!-- Konten -->
+            <div class="flex flex-col">
+                <div class="my-10">
+                    <!-- Judul -->
+                    <div class="text-4xl uppercase font-dmSerifDisplay text-center mb-5" data-aos="fade-down"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        Love Story
+                    </div>
+                    <!-- Divider -->
+                    <div class="flex items-center justify-center text-center gap-4 mb-7" data-aos="zoom-in"
+                        data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        <div class="h-[1px] bg-black flex-1"></div>
+                        <div class="text-3xl mx-0 md:mx-2">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="h-[1px] bg-black flex-1"></div>
+                    </div>
+                    <!-- Foto Cerita -->
+                    <div class="flex justify-center mx-auto">
+                        <div class="rotate-3 py-3 px-[0.65rem] mx-8 mb-7 bg-white relative shadow-lg">
+                            <img src="{{ asset('tema/premium-5/ornament-2.png') }}" alt="Ornament"
+                                class="absolute -top-7 -right-10 w-32 h-28 object-contain z-10 rotate-12" />
+                            <div class="relative flex justify-center">
+                                <img src="{{ asset($fotoCerita) }}" alt="Story Image" class="w-72 h-72 object-cover"
+                                    data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                            </div>
+                            <img src="{{ asset('tema/premium-5/flower-2.png') }}" alt="Flower"
+                                class="absolute -bottom-12 -left-20 w-48 h-48 object-contain z-10 -rotate-12" />
+                        </div>
+                    </div>
+                    <!-- Quote -->
+                    @if ($invitation->quote)
+                        <div class="text-center">
+                            <div class="px-5 pt-10 text-lg font-cormorant" data-aos="fade-right"
+                                data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                {!! nl2br(e($invitation->quote->quote)) !!}
+                            </div>
+                            <div class="pt-5 pb-10 font-semibold font-croissant text-[#000000]" data-aos="fade-left"
+                                data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                {{ $invitation->quote->author }}
+                            </div>
+                        </div>
+                    @endif
+                    <!-- Cerita -->
+                    @if ($invitation->cerita->isNotEmpty())
+                        @foreach ($invitation->cerita as $cerita)
+                            <div class="mt-5 mx-5">
+                                <div data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                    <div class="text-xl font-dmSerifDisplay p-4">
+                                        Pertemuan Pertama
+                                    </div>
+                                    <div class="pb-4 px-4 text-lg font-cormorant">
+                                        Kami bertemu di sebuah kafe kecil.
+                                        Senyum pertama yang kami bagi membuat hati kami saling terhubung.
+                                        Percakapan ringan mengarah pada janji untuk bertemu lagi.
+                                        Itu adalah awal dari sebuah kisah cinta yang tak terduga.
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Galeri -->
     @if ($invitation->galeri && ($invitation->galeri->video_galeri || $invitation->galeri->foto_galeri))
         <section>
-            <div
-                class="bg-white text-black relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]">
-                <div class="flex flex-col py-10">
+            <div class="bg-white relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]">
+                <div class="flex flex-col my-10">
                     <!-- Judul -->
-                    <div class="pb-10 px-5">
-                        <div class="text-3xl uppercase font-cormorant" data-aos="fade-down"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                            Our Gallery
+                    <div class="pb-10 px-5 mx-auto text-center">
+                        <div class="text-3xl uppercase font-dmSerifDisplay" data-aos="fade-left"
+                            data-aos-easing="ease-in-sine" data-aos-duration="800" style="font-weight: 1000;">
+                            Gallery
                         </div>
-                        <div class="text-3xl font-pinyon mt-2" data-aos="fade-up" data-aos-easing="ease-in-sine"
-                            data-aos-duration="800">
-                            @if ($invitation->mempelai)
-                                {{ $invitation->mempelai->panggilan_pria }} &
-                                {{ $invitation->mempelai->panggilan_wanita }}
-                            @else
-                                - & -
-                            @endif
+                        <div class="text-3xl font-cormorant text-shadow-2" data-aos="fade-right"
+                            data-aos-easing="ease-in-sine" data-aos-duration="800">
+                            OUR MOMENTS
                         </div>
                     </div>
                     <!-- Foto & Video -->
-                    <div class="mx-5 bg-black" data-aos="zoom-in" data-aos-easing="ease-in-sine"
-                        data-aos-duration="800">
+                    <div class="mx-5">
                         <!-- Video -->
                         @if ($invitation->galeri->first() && $invitation->galeri->first()->video_galeri)
-                            <div class="w-full px-5 pt-5">
+                            <div class="shadow-xl" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                                data-aos-duration="800">
                                 <iframe class="w-full h-56" src="{{ $invitation->galeri->first()->video_galeri }}"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -479,214 +556,164 @@
                             </div>
                         @endif
                         <!-- Foto Galeri -->
-                        <div class="px-5">
-                            @if (
-                                $invitation->galeri &&
-                                    is_array(json_decode($invitation->galeri->foto_galeri, true)) &&
-                                    !empty(json_decode($invitation->galeri->foto_galeri, true)))
-                                <div class="grid grid-cols-2 gap-4 py-5">
-                                    @foreach (json_decode($invitation->galeri->foto_galeri) as $foto)
-                                        <img src="{{ asset(str_replace('D:/Herd/undangan/public/', '', $foto)) }}"
-                                            alt="Foto"
-                                            class="w-full aspect-square object-cover rounded cursor-pointer"
-                                            onclick="openModal('{{ asset(str_replace('D:/Herd/undangan/public/', '', $foto)) }}')">
-                                    @endforeach
-                                </div>
-                            @else
-                                <p class="text-center text-white p-5">Tidak ada foto galeri</p>
-                            @endif
-                        </div>
+                        @if (
+                            $invitation->galeri &&
+                                is_array(json_decode($invitation->galeri->foto_galeri, true)) &&
+                                !empty(json_decode($invitation->galeri->foto_galeri, true)))
+                            <div class="grid grid-cols-2 gap-4 py-5">
+                                @foreach (json_decode($invitation->galeri->foto_galeri) as $foto)
+                                    <img src="{{ asset(str_replace('D:/Herd/undangan/public/', '', $foto)) }}"
+                                        alt=""
+                                        class="w-full aspect-square object-cover cursor-pointer shadow-xl"
+                                        onclick="openModal('{{ asset(str_replace('D:/Herd/undangan/public/', '', $foto)) }}')"
+                                        data-aos="zoom-in" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </section>
     @endif
 
-    <!-- Cerita & Quote -->
-    <section>
-        <div class="text-black relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]"
-            style="background-image: url('{{ asset($fotoSampul ?? '') }}'); background-position: center; background-size: cover;">
-            <!-- Filter -->
-            <div class="absolute inset-0 bg-black/50"></div>
-            <!-- Konten -->
-            <div class="flex flex-col">
-                <div class="mx-5 my-10 bg-white border border-black z-10">
-                    <!-- Judul -->
-                    <div class="text-3xl uppercase font-cormorant text-center pt-10" data-aos="fade-down"
-                        data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="500">
-                        Love Story
-                    </div>
-                    <!-- Foto -->
-                    <div class="flex justify-center my-10 mx-5" data-aos="fade-up" data-aos-easing="ease-in-sine"
-                        data-aos-duration="800" data-aos-delay="500">
-                        <img src="{{ asset($fotoCerita ?? 'tema/foto/default.png') }}" alt=""
-                            class="w-[250px] h-[250px] md:w-[300px] md:h-[300px] object-cover border border-black">
-                    </div>
-                    <!-- Quote -->
-                    @if ($invitation->quote)
-                        <div class="text-center">
-                            <div class="text-sm px-5 font-poppins" data-aos="fade-right"
-                                data-aos-easing="ease-in-sine" data-aos-duration="700" data-aos-delay="500">
-                                {!! nl2br(e($invitation->quote->quote)) !!}
-                            </div>
-                            <div class="pt-5 pb-10 font-semibold font-croissant text-[#000000]" data-aos="fade-left"
-                                data-aos-easing="ease-in-sine" data-aos-duration="700" data-aos-delay="500">
-                                {{ $invitation->quote->author }}
-                            </div>
-                        </div>
-                    @endif
-                    @if ($invitation->cerita->isNotEmpty())
-                        <!-- Divider -->
-                        <div class="flex items-center justify-center text-center gap-4 mx-5" data-aos="zoom-in"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                            <div class="h-[1px] bg-black flex-1"></div>
-                            <div class="text-3xl text-black mx-4">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                            <div class="h-[1px] bg-black flex-1"></div>
-                        </div>
-                        <!-- Cerita -->
-                        @foreach ($invitation->cerita as $cerita)
-                            <div class="m-5">
-                                <div class="bg-white border border-black" data-aos="fade-up"
-                                    data-aos-easing="ease-in-sine" data-aos-duration="700" data-aos-delay="500">
-                                    <div class="text-xl font-cormorant p-4">
-                                        {{ $cerita->judul_cerita }}
-                                    </div>
-                                    <div class="pb-4 px-4 text-sm font-poppins">
-                                        {{ $cerita->isi_cerita }}
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Wish & RSVP -->
     <section>
-        <div
-            class="bg-black text-white relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]">
-            <div class="flex flex-col my-24">
-                <!-- Wish -->
-                @if ($commentsEnabled)
-                    <!-- Judul Wish -->
-                    <div class="text-center">
-                        <h2 class="text-3xl uppercase font-cormorant mb-5 mx-8" data-aos="fade-down"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                            Wedding Wish
-                        </h2>
-                        <p class="mb-10 mx-8 font-cormorant text-xl md:text-lg" data-aos="fade-up"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
-                            Berikan ucapan, harapan dan do'a kepada kedua mempelai
-                        </p>
-                    </div>
-                    <!-- Form Wish -->
-                    <form action="{{ route('comments.store', $invitation->id) }}" method="POST"
-                        data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="800"
-                        class="mx-8 mb-5">
-                        @csrf
-                        <div class="mb-4 w-full">
-                            <label for="name" class="block text-sm font-medium text-white font-croissant">
-                                Nama:
-                            </label>
-                            <input type="text" id="name" name="name"
-                                class="mt-1 block w-full border border-gray-300 py-2 px-3 text-sm font-poppins text-black"
-                                placeholder="Nama Anda" required
-                                onfocus="this.style.borderColor='#6b7280'; this.style.boxShadow='0 0 0 1px #ffffff';"
-                                onblur="this.style.borderColor='#6b7280'; this.style.boxShadow='none';"
-                                oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
-                                oninput="this.setCustomValidity('')">
-                        </div>
-                        <div class="mb-4 w-full">
-                            <label for="message" class="block text-sm font-medium text-white font-croissant">
-                                Ucapan atau Doa:
-                            </label>
-                            <textarea id="message" name="message" rows="4"
-                                class="mt-1 block w-full border border-gray-300 py-2 px-3 text-sm font-poppins text-black"
-                                placeholder="Tulis ucapan atau doa Anda di sini..." required
-                                onfocus="this.style.borderColor='#6b7280'; this.style.boxShadow='0 0 0 1px #ffffff';"
-                                onblur="this.style.borderColor='#6b7280'; this.style.boxShadow='none';"
-                                oninvalid="this.setCustomValidity('Kolom ini harus diisi')" oninput="this.setCustomValidity('')"></textarea>
-                        </div>
-                        <div class="text-center text-sm">
-                            <button type="submit"
-                                class="text-black bg-white py-2 px-6 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 transition ease-in-out duration-150 font-montserrat">
-                                <span>Kirim</span>
-                                <i class="fas fa-paper-plane ml-1"></i>
-                            </button>
-                        </div>
-                    </form>
-                    <!-- Their Wish -->
-                    <div class="px-4 mt-5 mx-2" style="max-height: 500px; overflow-y: auto;" data-aos="fade-left"
-                        data-aos-easing="ease-in-sine" data-aos-duration="800">
-                        @foreach ($comments as $comment)
-                            <div class="my-4 p-5 bg-white rounded-lg shadow-lg">
-                                <h4 class="uppercase font-croissant text-black">
-                                    {{ $comment->name }}
-                                </h4>
-                                <p class="text-gray-600 font-poppins text-sm pt-1">
-                                    {{ $comment->message }}
+        <div class="relative flex flex-col justify-center items-center min-h-screen w-full mx-auto max-w-[500px]"
+            style="background-image: url('{{ asset('tema/premium-5/bg.webp') }}'); 
+            background-size: cover; background-attachment: fixed;">
+            <!-- Frame -->
+            <div class="w-full">
+                <img src="{{ asset('tema/premium-5/frame-1.png') }}" alt="Frame Atas" class="object-cover">
+            </div>
+            <!-- Wish -->
+            @if ($commentsEnabled)
+                <div class="w-full">
+                    <div class="bg-white flex flex-col mx-2 mt-24 shadow-xl">
+                        <div class="mt-10">
+                            <!-- Judul Wish -->
+                            <div class="text-center">
+                                <h2 class="text-3xl font-dmSerifDisplay mt-5 mx-5" data-aos="fade-down"
+                                    data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                    Wedding Wish
+                                </h2>
+                                <p class="mt-3 mb-5 mx-5 font-cormorant text-lg" data-aos="fade-up"
+                                    data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                    Berikan ucapan, harapan dan do'a kepada kedua mempelai
                                 </p>
                             </div>
-                        @endforeach
+                            <!-- Form Wish -->
+                            <form action="{{ route('comments.store', $invitation->id) }}" method="POST"
+                                data-aos="fade-right" data-aos-easing="ease-in-sine" data-aos-duration="800"
+                                class="mx-5 mb-5">
+                                @csrf
+                                <div class="mb-4 w-full">
+                                    <label for="name" class="block text-white font-medium font-dmSerifDisplay">
+                                        Nama:
+                                    </label>
+                                    <input type="text" id="name" name="name"
+                                        class="mt-1 block w-full border border-[#EEEEEE] py-2 px-3 text-sm font-cormorant text-black"
+                                        placeholder="Nama Anda" required
+                                        onfocus="this.style.borderColor='#EEEEEE'; this.style.boxShadow='0 0 0 1px #ffffff';"
+                                        onblur="this.style.borderColor='#EEEEEE'; this.style.boxShadow='none';"
+                                        oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
+                                        oninput="this.setCustomValidity('')" style="border-color: #EEEEEE;">
+                                </div>
+                                <div class="mb-4 w-full">
+                                    <label for="message" class="block text-white font-medium font-dmSerifDisplay">
+                                        Ucapan atau Doa:
+                                    </label>
+                                    <textarea id="message" name="message" rows="4"
+                                        class="mt-1 block w-full border border-[#EEEEEE] py-2 px-3 text-sm font-cormorant text-black"
+                                        placeholder="Tulis ucapan atau doa Anda di sini..." required
+                                        onfocus="this.style.borderColor='#EEEEEE'; this.style.boxShadow='0 0 0 1px #ffffff';"
+                                        onblur="this.style.borderColor='#EEEEEE'; this.style.boxShadow='none';"
+                                        oninvalid="this.setCustomValidity('Kolom ini harus diisi')" oninput="this.setCustomValidity('')"></textarea>
+                                </div>
+                                <div class="text-center text-sm mb-10">
+                                    <button type="submit"
+                                        class="text-white shadow-xl py-2 px-6 focus:outline-none focus:ring-1 focus:ring-[#FFB3B8] focus:ring-offset-1 transition ease-in-out duration-150 font-montserrat"
+                                        style="background-color: #FFB3B8">
+                                        <span>Kirim</span>
+                                        <i class="fas fa-paper-plane ml-1"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <!-- Their Wish -->
+                            <div class="px-4 mb-10 mt-5 mx-2 text-black border-2 border-[#EEEEEE] rounded"
+                                style="max-height: 500px; overflow-y: auto;" data-aos="fade-left"
+                                data-aos-easing="ease-in-sine" data-aos-duration="800">
+                                @foreach ($comments as $comment)
+                                    <div class="my-4 p-5 rounded-xl shadow-xl">
+                                        <h4 class="uppercase font-dmSerifDisplay">
+                                            {{ $comment->name }}
+                                        </h4>
+                                        <p class="font-cormorant text-lg pt-1">
+                                            {{ $comment->message }}
+                                        </p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                @endif
-                <!-- RSVP -->
-                <div data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                </div>
+            @endif
+            <!-- RSVP -->
+            <div class="w-full">
+                <div class="bg-white flex flex-col mx-2 mt-10 mb-24 shadow-xl" data-aos="fade-up"
+                    data-aos-easing="ease-in-sine" data-aos-duration="800">
                     <!-- Judul RSVP -->
-                    <h2 class="text-center text-3xl uppercase font-cormorant mt-10 mb-5 mx-8">
+                    <h2 class="text-center text-3xl font-dmSerifDisplay mt-10 mb-5 mx-5">
                         RSVP
                     </h2>
                     <!-- Form -->
-                    <form action="{{ route('rsvp.store', $invitation->id) }}" method="POST" class="mx-8">
+                    <form action="{{ route('rsvp.store', $invitation->id) }}" method="POST" class="mx-5">
                         @csrf
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-white font-croissant">
+                        <div class="mb-4 w-full">
+                            <label for="name" class="block text-white font-medium font-dmSerifDisplay">
                                 Nama :
                             </label>
                             <input type="text" id="name" name="nama"
-                                class="mt-1 block w-full border py-2 px-3 text-sm font-poppins text-black"
+                                class="mt-1 block w-full border border-[#EEEEEE] py-2 px-3 text-sm font-cormorant text-black"
                                 placeholder="Nama Anda" required
-                                onfocus="this.style.borderColor='#6b7280'; this.style.boxShadow='0 0 0 1px #ffffff';"
-                                onblur="this.style.borderColor='#6b7280'; this.style.boxShadow='none';"
+                                onfocus="this.style.borderColor='#EEEEEE'; this.style.boxShadow='0 0 0 1px #ffffff';"
+                                onblur="this.style.borderColor='#EEEEEE'; this.style.boxShadow='none';"
                                 oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
-                                oninput="this.setCustomValidity('')">
+                                oninput="this.setCustomValidity('')" style="border-color: #EEEEEE;">
+
                         </div>
-                        <div class="mb-4">
-                            <label for="message" class="block text-sm font-medium text-white font-croissant">
+                        <div class="mb-4 w-full">
+                            <label for="message" class="block text-white font-medium font-dmSerifDisplay">
                                 Pesan :
                             </label>
                             <textarea id="message" name="pesan" rows="4"
-                                class="mt-1 block w-full border py-2 px-3 text-sm font-poppins text-black"
+                                class="mt-1 block w-full border border-[#EEEEEE] py-2 px-3 text-sm font-cormorant text-black"
                                 placeholder="Tulis pesan Anda di sini..." required
-                                onfocus="this.style.borderColor='#6b7280'; this.style.boxShadow='0 0 0 1px #ffffff';"
-                                onblur="this.style.borderColor='#6b7280'; this.style.boxShadow='none';"
+                                onfocus="this.style.borderColor='#EEEEEE'; this.style.boxShadow='0 0 0 1px #ffffff';"
+                                onblur="this.style.borderColor='#EEEEEE'; this.style.boxShadow='none';"
                                 oninvalid="this.setCustomValidity('Kolom ini harus diisi')" oninput="this.setCustomValidity('')"></textarea>
                         </div>
                         <div class="mb-4">
                             <div class="relative inline-block w-full">
-                                <label for="message" class="block text-sm font-medium text-white font-croissant">
+                                <label for="message"
+                                    class="block text-sm font-medium text-white font-dmSerifDisplay">
                                     Konfirmasi Kehadiran
                                 </label>
                                 <button id="dropdownButton"
-                                    class="mt-1 block text-left bg-white text-black w-full border border-gray-500 shadow-sm py-2 px-3 sm:text-sm font-montserrat"
+                                    class="mt-1 block text-left bg-white w-full border border-[#EEEEEE] shadow-sm py-2 px-3 sm:text-sm font-cormorant"
                                     style="transition: 0.3s ease; outline: none;" onclick="toggleDropdown(event)">
                                     <span class="text-gray-500">. . .</span>
                                 </button>
                                 <ul id="dropdownMenu"
-                                    class="hidden absolute z-10 w-full mt-[0.10rem] bg-white text-black border border-gray-300 shadow-lg font-montserrat">
-                                    <li class="py-2 px-3 cursor-pointer hover:bg-black hover:text-white"
+                                    class="hidden absolute z-10 w-full mt-[0.10rem] bg-white border border-gray-300 shadow-lg font-cormorant">
+                                    <li class="py-2 px-3 cursor-pointer hover:bg-[#EEEEEE]"
                                         onclick="selectOption('Ya, Saya akan datang')">
                                         Ya, Saya akan datang
                                     </li>
-                                    <li class="py-2 px-3 cursor-pointer hover:bg-black hover:text-white"
+                                    <li class="py-2 px-3 cursor-pointer hover:bg-[#EEEEEE]"
                                         onclick="selectOption('Maaf, Saya tidak bisa datang')">
                                         Maaf, Saya tidak bisa datang
                                     </li>
-                                    <li class="py-2 px-3 cursor-pointer hover:bg-black hover:text-white"
+                                    <li class="py-2 px-3 cursor-pointer hover:bg-[#EEEEEE]"
                                         onclick="selectOption('Saya belum tahu bisa datang atau tidak')">
                                         Saya belum tahu bisa datang atau tidak
                                     </li>
@@ -695,9 +722,10 @@
                         </div>
                         <input type="hidden" id="konfirmasi_kehadiran" name="konfirmasi_kehadiran">
                         <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
-                        <div class="text-center text-sm">
+                        <div class="text-center text-sm mb-10">
                             <button type="submit"
-                                class="text-black bg-white py-2 px-6 border border-gray-500 focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-1 transition ease-in-out duration-150 font-montserrat">
+                                class="text-white shadow-xl py-2 px-6 focus:outline-none focus:ring-1 focus:ring-[#FFB3B8] focus:ring-offset-1 transition ease-in-out duration-150 font-montserrat"
+                                style="background-color: #FFB3B8">
                                 <span>Kirim</span>
                                 <i class="fas fa-paper-plane ml-1"></i>
                             </button>
@@ -711,48 +739,46 @@
     <!-- Kado Digital -->
     @if ($invitation->kadodigital->isNotEmpty())
         <section>
-            <div class="bg-white relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]">
-                <div class="flex flex-col">
-                    <div class="my-20">
+            <div class="relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]"
+                style="background-image: url('{{ asset('tema/premium-5/bg.webp') }}'); 
+                background-size: cover; background-attachment: fixed;">
+                <div class="bg-white my-5 mx-3 flex flex-col shadow-xl">
+                    <div class="mx-5 py-10" data-aos="fade-up" data-aos-easing="ease-in-sine"
+                        data-aos-duration="800">
                         <!-- Judul -->
                         <div class="text-center mb-9">
-                            <div class="text-3xl uppercase font-cormorant mb-5 mx-8" data-aos="fade-down"
-                                data-aos-easing="ease-in-sine" data-aos-duration="800">
+                            <div class="text-3xl font-dmSerifDisplay mb-5 mx-8">
                                 Kado Digital
                             </div>
-                            <div class="font-cormorant text-xl md:text-lg my-5 mx-8" data-aos="fade-up"
-                                data-aos-easing="ease-in-sine" data-aos-duration="800">
+                            <div class="font-cormorant text-lg my-5 mx-8">
                                 Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah
-                                ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.
+                                ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless
                             </div>
                         </div>
                         <!-- Divider -->
-                        <div class="flex items-center justify-center text-center gap-4" data-aos="zoom-in"
-                            data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        <div class="flex items-center justify-center text-center gap-4">
                             <div class="h-[1px] bg-black flex-1"></div>
-                            <div class="text-2xl text-black mx-4">
+                            <div class="text-2xl mx-0 md:mx-2">
                                 <i class="fas fa-gift"></i>
                             </div>
                             <div class="h-[1px] bg-black flex-1"></div>
                         </div>
                         <!-- Rekening -->
                         @foreach ($invitation->kadodigital as $kado)
-                            <div class="w-full text-center mt-10" data-aos="fade-up" data-aos-easing="ease-in-sine"
-                                data-aos-duration="800">
-                                <p class="text-gray-800 font-montserrat mt-4">Bank :</p>
-                                <p class="text-[#000000] font-montserrat">{{ $kado->nama_bank }}</p>
-                                <p class="mt-4 text-gray-800 font-montserrat">Atas Nama :</p>
-                                <p class="text-[#000000] font-montserrat">{{ $kado->penerima }}</p>
-                                <p class="mt-4 text-gray-800 font-montserrat">Nomor Rekening :</p>
-                                <p id="nomor_rekening_{{ $kado->id }}"
-                                    class="text-[#000000] font-montserrat mb-4">
+                            <div class="w-full text-center font-cormorant mt-10">
+                                <p class="text-lg mt-4">Bank :</p>
+                                <p class="text-lg font-dmSerifDisplay">{{ $kado->nama_bank }}</p>
+                                <p class="mt-4 text-lg">Atas Nama :</p>
+                                <p class="text-lg font-dmSerifDisplay">{{ $kado->penerima }}</p>
+                                <p class="mt-4 text-lg">Nomor Rekening :</p>
+                                <p id="nomor_rekening_{{ $kado->id }}" class="text-lg font-dmSerifDisplay mb-4">
                                     {{ $kado->no_rekening }}
                                 </p>
                                 <div class="mb-4 text-center">
                                     <button id="copyButton_{{ $kado->id }}" type="button"
                                         onclick="copyToClipboard({{ $kado->id }})"
-                                        class="text-sm text-nowrap text-white py-2 px-6 focus:outline-none focus:ring-2 focus:ring-[#000000] focus:ring-offset-2 transition ease-in-out duration-150 font-montserrat"
-                                        style="background-color: #000000;">
+                                        class="text-lg shadow-xl text-nowrap text-white py-2 px-6 focus:outline-none focus:ring-2 focus:ring-[#FFB3B8] focus:ring-offset-2 transition ease-in-out duration-150"
+                                        style="background-color: #FFB3B8;">
                                         <span>Salin Nomor Rekening</span>
                                         <i class="fas fa-copy text-lg ml-1"></i>
                                     </button>
@@ -766,44 +792,45 @@
     @endif
 
     <!-- Penutup -->
-    <div class="relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]"
-        style="background-image: url('{{ asset($fotoSampul ?? '') }}'); background-position: center; background-size: cover;">
-        <!-- Filter -->
-        <div class="absolute inset-0 bg-black/50 z-0"></div>
-        <!-- Konten -->
-        <div class="flex flex-col text-center text-white m-10">
-            <div class="my-5">
+    <section>
+        <div class="relative flex justify-center items-center min-h-screen w-full mx-auto max-w-[500px]"
+            style="background-image: url('{{ asset($fotoSampul ?? '') }}'); 
+            background-size: cover; background-position: center;">
+            <!-- Konten -->
+            <div class="flex flex-col text-center bg-white/85 p-8 mx-5 shadow-xl relative max-w-[400px]">
                 <!-- Teks Penutup -->
-                <div>
-                    <div class="font-cormorant text-xl md:text-lg" data-aos="fade-right"
-                        data-aos-easing="ease-in-sine" data-aos-duration="800">
+                <div data-aos="fade-down" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                    <div class="font-cormorant text-lg">
                         {{ $invitation->tekspenutup->teks ??
                             'Suatu kebahagiaan & kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i, berkenan hadir dan memberikan do’a restu kepada kami' }}
                     </div>
-                    <div class="tet-sm font-croissant mt-5" data-aos="fade-left" data-aos-easing="ease-in-sine"
-                        data-aos-duration="800">
+                    <div class="font-dmSerifDisplay mt-5">
                         {{ $invitation->tekspenutup->salam ?? ' Wassalamu’alaikum Wr. Wb.' }}
                     </div>
                 </div>
                 <br><br>
                 <!-- Teks -->
-                <div data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
-                    <div class="font-cormorant text-xl md:text-lg">
-                        Kami yang berbahagia
+                <div>
+                    <div data-aos="fade-up" data-aos-easing="ease-in-sine" data-aos-duration="800">
+                        <div class="font-cormorant text-lg">
+                            Kami yang berbahagia
+                        </div>
+                        <div class="text-2xl font-bold mt-3 font-dmSerifDisplay">
+                            @if ($invitation->mempelai)
+                                {{ $invitation->mempelai->panggilan_pria ?? '-' }}
+                                &
+                                {{ $invitation->mempelai->panggilan_wanita ?? '-' }}
+                            @else
+                                - & -
+                            @endif
+                        </div>
                     </div>
-                    <div class="text-2xl font-bold mt-3 font-croissant md:text-lg">
-                        @if ($invitation->mempelai)
-                            {{ $invitation->mempelai->panggilan_pria ?? '-' }}
-                            &
-                            {{ $invitation->mempelai->panggilan_wanita ?? '-' }}
-                        @else
-                            - & -
-                        @endif
-                    </div>
-                    <div class="mt-10 font-cormorant text-xl md:text-lg">
+                    <div class="mt-10 font-cormorant text-lg" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                        data-aos-duration="800">
                         <div class="mt-5">
                             Created with
-                            <i class="fa-solid fa-heart"></i>
+                            <i class="fa-solid fa-heart" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                                data-aos-duration="800"></i>
                             by
                             <a href="{{ route('home') }}" class="hover:underline" target="_blank">
                                 WeInvite
@@ -811,9 +838,11 @@
                         </div>
                     </div>
                 </div>
+                <img src="{{ asset('tema/premium-5/flower-1.webp') }}" alt="Flower"
+                    class="absolute -bottom-14 -right-16 w-48 h-48 object-contain z-10 rotate-12" />
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Modal Foto -->
     <div id="default-modal" tabindex="-1" aria-hidden="true"
@@ -822,7 +851,7 @@
         <div class="relative p-1 w-full max-h-full">
             <div class="relative bg-white">
                 <button type="button"
-                    class="absolute top-2 right-2 text-white !bg-[#000000] !important text-sm w-7 h-7 inline-flex justify-center items-center"
+                    class="absolute top-2 right-2 text-white !bg-[#FFB3B8] !important text-sm w-7 h-7 inline-flex justify-center items-center"
                     onclick="closeModal()">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
@@ -832,7 +861,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="p-4">
-                    <img id="modal-image" class="w-auto h-full mx-auto object-contain border-2 border-black"
+                    <img id="modal-image" class="w-auto h-full mx-auto object-contain border-2 border-[#FFB3B8]"
                         src="" alt="Modal Image">
                 </div>
             </div>
@@ -841,7 +870,7 @@
 
     <!-- Tombol Musik -->
     <button id="music-control"
-        class="fixed top-4 right-4 z-30 text-[#000000] bg-white py-3 px-4 rounded-full shadow-lg">
+        class="fixed top-4 right-4 z-30 text-[#FFB3B8] bg-white py-3 px-4 rounded-full shadow-lg">
         <i id="music-icon" class="fas fa-music pr-[1px]"></i>
         @if ($invitation->music)
             <iframe id="music-iframe" width="100%" height="160" scrolling="no" frameborder="no"

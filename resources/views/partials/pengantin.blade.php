@@ -59,7 +59,7 @@
                     <label for="anak_ke_pria" class="block mb-2 text-sm font-medium text-gray-900">
                         Anak Ke
                     </label>
-                    <input type="text" name="anak_ke_pria" id="anak_ke_pria"
+                    <input type="number" name="anak_ke_pria" id="anak_ke_pria"
                         value="{{ old('anak_ke_pria', $mempelai->anak_ke_pria ?? '') }}" class="custom-input" required
                         oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
                         oninput="this.setCustomValidity('')">
@@ -127,7 +127,7 @@
                     <label for="anak_ke_wanita" class="block mb-2 text-sm font-medium text-gray-900">
                         Anak Ke
                     </label>
-                    <input type="text" name="anak_ke_wanita" id="anak_ke_wanita"
+                    <input type="number" name="anak_ke_wanita" id="anak_ke_wanita"
                         value="{{ old('anak_ke_wanita', $mempelai->anak_ke_wanita ?? '') }}" class="custom-input"
                         required oninvalid="this.setCustomValidity('Kolom ini harus diisi')"
                         oninput="this.setCustomValidity('')">

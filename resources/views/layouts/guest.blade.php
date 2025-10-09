@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="image/png" href="{{ asset('images/web-icon.png') }}">
+
     <title>WeInvite</title>
+    <link rel="icon" type="image/png" href="{{ asset('web-icon.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,14 +26,28 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
         .bg-container {
             background-image: url('/images/5569176.jpg');
             background-size: cover;
             background-position: center;
             transform: rotate(180deg);
             width: 100%;
-            height: 100%;
-            position: absolute;
+            height: 100vh;
+            position: fixed;
             top: 0;
             left: 0;
             z-index: -1;
@@ -55,13 +72,13 @@
     </style>
 </head>
 
-<body class="font-average text-gray-900 antialiased">
+<body class="font-average text-gray-900 antialiased overflow-hidden">
 
-    <div class="bg-container absolute inset-0 z-0"></div>
+    <div class="bg-container"></div>
 
-    <div class="min-h-screen flex items-center justify-center mx-5" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+    <div class="min-h-full flex items-center justify-center px-5" data-aos="zoom-in" data-aos-easing="ease-in-sine"
         data-aos-duration="800">
-        <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-lg overflow-hidden sm:rounded-lg rounded-lg">
+        <div class="w-full sm:max-w-md px-6 py-4 bg-white shadow-lg rounded-lg">
             {{ $slot }}
         </div>
     </div>

@@ -342,7 +342,7 @@
                             <div class="mt-5">
                                 <a href="https://youtube.com" target="__blank"
                                     class="border py-2 px-6 bg-black text-white font-cormorant shadow-xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 transition ease-in-out duration-150">
-                                    <i class="fa-solid fa-tv mr-[0.35rem]"></i>
+                                    <i class="fas fa-video mr-[0.35rem]"></i>
                                     Tonton Streaming
                                 </a>
                             </div>

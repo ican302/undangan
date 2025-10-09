@@ -71,6 +71,11 @@
                                                             alt="Theme 1">
                                                     </li>
                                                     <li class="splide__slide">
+                                                        <img src="{{ asset('tema/premium-5/thumbnail.jpg') }}"
+                                                            class="block object-cover object-center transition-transform duration-500 hover:scale-110"
+                                                            alt="Theme 1">
+                                                    </li>
+                                                    <li class="splide__slide">
                                                         <img src="{{ asset('tema/basic-1/thumbnail.jpg') }}"
                                                             class="block object-cover object-center transition-transform duration-500 hover:scale-110"
                                                             alt="Theme 1">

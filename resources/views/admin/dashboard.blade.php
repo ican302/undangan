@@ -137,7 +137,7 @@
                 </form>
                 <div class="relative overflow-x-auto overflow-y-auto mx-auto mt-5">
                     <table class="text-sm text-left rtl:text-right text-gray-500 w-full border">
-                        <thead class="text-white bg-gray-800">
+                        <thead class="text-white text-nowrap bg-gray-800">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Username</th>
                                 <th scope="col" class="px-6 py-4">Tipe Akun</th>
@@ -339,7 +339,7 @@
                 </form>
                 <div class="relative overflow-x-auto overflow-y-auto mx-auto mt-5">
                     <table class="text-sm text-left rtl:text-right text-gray-500 w-full border">
-                        <thead class="text-white bg-gray-800">
+                        <thead class="text-white text-nowrap bg-gray-800">
                             <tr>
                                 <th scope="col" class="px-6 py-4">Username</th>
                                 <th scope="col" class="px-6 py-4">Tema</th>

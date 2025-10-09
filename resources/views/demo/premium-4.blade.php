@@ -130,6 +130,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-5"></div>
             </div>
         </div>
     </section>
@@ -404,6 +405,25 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Live Streaming -->
+            <div class="text-center text-white py-10 bg-[#879374] border-[3px] border-[#C3CEB1] rounded-lg mb-10 mx-5">
+                <div class="text-3xl font-dmSerifDisplay text-nowrap" data-aos="fade-right"
+                    data-aos-easing="ease-in-sine" data-aos-duration="800">
+                    Live Streaming
+                </div>
+                <div class="text-sm text-white font-cormorant font-light mt-2 py-3 px-5" data-aos="fade-left"
+                    data-aos-easing="ease-in-sine" data-aos-duration="800">
+                    Temui kami secara virtual untuk menyaksikan acara pernikahan kami melalui siaran langsung
+                </div>
+                <div class="flex justify-center mt-5" data-aos="zoom-in" data-aos-easing="ease-in-sine"
+                    data-aos-duration="800">
+                    <a href="https://www.google.com/maps" target="_blank"
+                        class="bg-white font-cormorant font-bold shadow-xl border-2 border-[#C3CEB1] text-[#879374] py-2 px-6 flex items-center justify-center space-x-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 transition ease-in-out duration-150">
+                        <i class="fas fa-video"></i>
+                        <span>Tonton Streaming</span>
+                    </a>
                 </div>
             </div>
         </div>

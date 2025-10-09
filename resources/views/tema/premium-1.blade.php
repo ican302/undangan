@@ -535,6 +535,7 @@
                             </div>
                         </div>
                     @endif
+                    <!-- Cerita -->
                     @if ($invitation->cerita->isNotEmpty())
                         <!-- Divider -->
                         <div class="flex items-center justify-center text-center gap-4 mx-5" data-aos="zoom-in"

@@ -8,6 +8,8 @@
 
     <title>WeInvite</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('images/web-icon.png') }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -406,6 +408,101 @@
                     },
                 },
             });
+        });
+
+        const navbar = document.getElementById('bottom-navbar');
+        const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+
+        const upBtn = document.getElementById('scroll-up-btn');
+        const downBtn = document.getElementById('scroll-down-btn');
+
+        function updateNavbarScrollButtons() {
+            scrollLeftBtn.style.display = navbar.scrollLeft > 0 ? 'block' : 'none';
+
+            const maxScrollLeft = navbar.scrollWidth - navbar.clientWidth;
+            scrollRightBtn.style.display = (maxScrollLeft - navbar.scrollLeft) > 10 ? 'block' : 'none';
+        }
+
+        function updatePageScrollButtons() {
+            const scrollTop = window.scrollY;
+            const scrollHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+
+            if (scrollTop <= 10) {
+                upBtn.classList.add('hidden');
+            } else {
+                upBtn.classList.remove('hidden');
+            }
+
+            if (scrollTop + windowHeight >= scrollHeight - 10) {
+                downBtn.classList.add('hidden');
+            } else {
+                downBtn.classList.remove('hidden');
+            }
+        }
+
+        scrollLeftBtn.addEventListener('click', () => {
+            navbar.scrollBy({
+                left: -100,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            navbar.scrollBy({
+                left: 100,
+                behavior: 'smooth'
+            });
+        });
+
+        function scrollToTop() {
+            window.removeEventListener('scroll', updatePageScrollButtons);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            const interval = setInterval(() => {
+                if (window.scrollY <= 0) {
+                    clearInterval(interval);
+                    updatePageScrollButtons();
+                    window.addEventListener('scroll', updatePageScrollButtons);
+                }
+            }, 100);
+        }
+
+        function scrollToBottom() {
+            window.removeEventListener('scroll', updatePageScrollButtons);
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+
+            const interval = setInterval(() => {
+                const scrollTop = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const scrollHeight = document.documentElement.scrollHeight;
+
+                if (scrollTop + windowHeight >= scrollHeight) {
+                    clearInterval(interval);
+                    updatePageScrollButtons();
+                    window.addEventListener('scroll', updatePageScrollButtons);
+                }
+            }, 100);
+        }
+
+        navbar.addEventListener('scroll', updateNavbarScrollButtons);
+        window.addEventListener('scroll', updatePageScrollButtons);
+
+        window.addEventListener('load', () => {
+            updateNavbarScrollButtons();
+            updatePageScrollButtons();
+        });
+
+        window.addEventListener('resize', () => {
+            updateNavbarScrollButtons();
+            updatePageScrollButtons();
         });
     </script>
 
